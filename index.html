@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Sistema de Gestión de Biblioteca — Talento Solutions</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+
+        .gradient-hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 30%, #1e40af 60%, #3b82f6 100%);
+        }
+        .gradient-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        }
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            border-radius: 12px;
+            overflow-x: auto;
+        }
+        .code-block .keyword { color: #c084fc; }
+        .code-block .string { color: #86efac; }
+        .code-block .comment { color: #64748b; }
+        .code-block .func { color: #60a5fa; }
+        .code-block .cls { color: #fbbf24; }
+        .code-block .param { color: #fb923c; }
+        .code-block .bool { color: #f472b6; }
+
+        .flow-node {
+            transition: all 0.3s ease;
+        }
+        .flow-node:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.3);
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        .tab-active {
+            background: #1e40af;
+            color: white;
+        }
+        .stat-card {
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+        }
+        .timeline-dot::before {
+            content: '';
+            position: absolute;
+            left: -29px;
+            top: 6px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #3b82f6;
+            border: 3px solid #dbeafe;
+        }
+        .hu-card {
+            border-left: 4px solid;
+            transition: all 0.3s ease;
+        }
+        .hu-card:hover {
+            transform: translateX(6px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .test-pass { color: #22c55e; }
+        .test-anim {
+            animation: slideRight 0.4s ease-out forwards;
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+        @keyframes slideRight {
+            to { opacity: 1; transform: translateX(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- ===== HEADER / HERO ===== -->
+    <header class="gradient-hero text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-10 left-10 text-9xl">📚</div>
+            <div class="absolute bottom-10 right-10 text-8xl">🤖</div>
+            <div class="absolute top-1/2 left-1/3 text-7xl">💻</div>
+        </div>
+        <nav class="relative z-10 max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="text-3xl">📚</span>
+                <span class="font-bold text-lg">Talento Solutions</span>
+            </div>
+            <div class="hidden md:flex gap-6 text-sm font-medium text-blue-200">
+                <a href="#overview" class="hover:text-white transition">Resumen</a>
+                <a href="#architecture" class="hover:text-white transition">Arquitectura</a>
+                <a href="#code" class="hover:text-white transition">Código</a>
+                <a href="#user-stories" class="hover:text-white transition">Historias</a>
+                <a href="#flow" class="hover:text-white transition">Flujo</a>
+                <a href="#tests" class="hover:text-white transition">Tests</a>
+                <a href="#ethics" class="hover:text-white transition">Ética</a>
+            </div>
+            <button onclick="document.getElementById('mobileMenu').classList.toggle('hidden')" class="md:hidden text-2xl">☰</button>
+        </nav>
+        <div id="mobileMenu" class="hidden md:hidden px-6 pb-4 space-y-2 text-sm text-blue-200">
+            <a href="#overview" class="block hover:text-white">Resumen</a>
+            <a href="#architecture" class="block hover:text-white">Arquitectura</a>
+            <a href="#code" class="block hover:text-white">Código</a>
+            <a href="#user-stories" class="block hover:text-white">Historias</a>
+            <a href="#flow" class="block hover:text-white">Flujo</a>
+            <a href="#tests" class="block hover:text-white">Tests</a>
+            <a href="#ethics" class="block hover:text-white">Ética</a>
+        </div>
+        <div class="relative z-10 max-w-7xl mx-auto px-6 py-20 md:py-28 text-center">
+            <div class="inline-block px-4 py-1.5 bg-blue-500/30 rounded-full text-sm font-medium mb-6 backdrop-blur">
+                🤖 Proyecto Piloto con Inteligencia Artificial
+            </div>
+            <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight">
+                Sistema de Gestión<br>de Biblioteca
+            </h1>
+            <p class="text-lg md:text-xl text-blue-200 max-w-2xl mx-auto mb-10">
+                Demostración completa de cómo la IA apoya todo el flujo de desarrollo:
+                planificación, código, testing, documentación y reflexión ética.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#code" class="px-8 py-3 bg-white text-blue-900 font-bold rounded-xl hover:bg-blue-50 transition shadow-lg">
+                    Ver el Código 💻
+                </a>
+                <a href="#flow" class="px-8 py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-500 transition border border-blue-400">
+                    Diagrama de Flujo 📊
+                </a>
+            </div>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-gray-50 to-transparent"></div>
+    </header>
+
+    <!-- ===== STATS BAR ===== -->
+    <section class="max-w-7xl mx-auto px-6 -mt-8 relative z-20">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="stat-card bg-white rounded-2xl p-5 text-center shadow-lg border border-gray-100">
+                <div class="text-3xl font-black text-blue-600">380+</div>
+                <div class="text-sm text-gray-500 mt-1">Líneas de código</div>
+            </div>
+            <div class="stat-card bg-white rounded-2xl p-5 text-center shadow-lg border border-gray-100">
+                <div class="text-3xl font-black text-green-600">28</div>
+                <div class="text-sm text-gray-500 mt-1">Tests unitarios</div>
+            </div>
+            <div class="stat-card bg-white rounded-2xl p-5 text-center shadow-lg border border-gray-100">
+                <div class="text-3xl font-black text-purple-600">5</div>
+                <div class="text-sm text-gray-500 mt-1">Historias de usuario</div>
+            </div>
+            <div class="stat-card bg-white rounded-2xl p-5 text-center shadow-lg border border-gray-100">
+                <div class="text-3xl font-black text-amber-600">6</div>
+                <div class="text-sm text-gray-500 mt-1">Archivos del proyecto</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== OVERVIEW ===== -->
+    <section id="overview" class="max-w-7xl mx-auto px-6 py-20">
+        <div class="text-center mb-14">
+            <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-4">Resumen del Proyecto</h2>
+            <p class="text-gray-500 max-w-2xl mx-auto">Un sistema completo de biblioteca desarrollado en Python con Tkinter, usando IA como co-piloto en cada fase.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="gradient-card rounded-2xl p-8 border border-blue-100">
+                <div class="text-4xl mb-4">📋</div>
+                <h3 class="text-xl font-bold mb-3 text-gray-900">Planificación</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">Análisis de requisitos, definición de historias de usuario, diseño de arquitectura y estructura de archivos — todo asistido por IA.</p>
+            </div>
+            <div class="gradient-card rounded-2xl p-8 border border-blue-100">
+                <div class="text-4xl mb-4">⚙️</div>
+                <h3 class="text-xl font-bold mb-3 text-gray-900">Desarrollo</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">Código Python con clases bien estructuradas, funciones puras para lógica de negocio, GUI con Tkinter y persistencia en JSON.</p>
+            </div>
+            <div class="gradient-card rounded-2xl p-8 border border-blue-100">
+                <div class="text-4xl mb-4">✅</div>
+                <h3 class="text-xl font-bold mb-3 text-gray-900">Calidad</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">28 tests unitarios con cobertura de edge cases, documentación completa con docstrings y diagramas de flujo.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ARCHITECTURE ===== -->
+    <section id="architecture" class="bg-white py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-14">
+                <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-4">🏗️ Arquitectura del Sistema</h2>
+                <p class="text-gray-500">Diseño en capas con separación clara de responsabilidades</p>
+            </div>
+            <div class="max-w-3xl mx-auto">
+                <!-- Capa GUI -->
+                <div class="bg-blue-600 text-white rounded-t-2xl p-6 text-center">
+                    <div class="font-bold text-lg">🖥️ BibliotecaGUI</div>
+                    <div class="text-blue-200 text-sm mt-1">Interfaz Gráfica (Tkinter) — Ventana, botones, tabla, filtros</div>
+                </div>
+                <!-- Capa Biblioteca -->
+                <div class="bg-blue-500 text-white p-6 text-center">
+                    <div class="font-bold text-lg">📦 Biblioteca</div>
+                    <div class="text-blue-200 text-sm mt-1">Gestión de colección + Persistencia JSON + Estadísticas</div>
+                </div>
+                <!-- Capa Lógica -->
+                <div class="bg-blue-400 text-white p-6 text-center flex flex-col md:flex-row gap-4 justify-center">
+                    <div class="bg-blue-300/30 rounded-xl p-4 flex-1 backdrop-blur">
+                        <div class="font-bold">📗 Libro</div>
+                        <div class="text-blue-100 text-xs mt-1">Modelo de datos</div>
+                    </div>
+                    <div class="bg-blue-300/30 rounded-xl p-4 flex-1 backdrop-blur">
+                        <div class="font-bold">📤 prestar_libro()</div>
+                        <div class="text-blue-100 text-xs mt-1">Lógica de préstamo</div>
+                    </div>
+                    <div class="bg-blue-300/30 rounded-xl p-4 flex-1 backdrop-blur">
+                        <div class="font-bold">📥 devolver_libro()</div>
+                        <div class="text-blue-100 text-xs mt-1">Lógica de devolución</div>
+                    </div>
+                </div>
+                <!-- Capa Datos -->
+                <div class="bg-gray-800 text-white rounded-b-2xl p-6 text-center">
+                    <div class="font-bold text-lg">💾 datos_biblioteca.json</div>
+                    <div class="text-gray-400 text-sm mt-1">Persistencia de datos en archivo JSON</div>
+                </div>
+            </div>
+
+            <!-- File Structure -->
+            <div class="mt-14 max-w-2xl mx-auto">
+                <h3 class="text-xl font-bold mb-6 text-center">📁 Estructura de Archivos</h3>
+                <div class="code-block p-6 text-sm font-mono">
+<pre>biblioteca-ia/
+├── src/
+│   └── biblioteca.py              <span class="comment"># Clases + GUI (~380 líneas)</span>
+├── tests/
+│   └── test_biblioteca.py         <span class="comment"># 28 tests unitarios</span>
+├── docs/
+│   ├── proceso_ia.md              <span class="comment"># Documentación del proceso</span>
+│   └── diagrama_flujo_prestamo.md <span class="comment"># Diagramas de flujo</span>
+├── .gitignore                     <span class="comment"># Archivos ignorados</span>
+├── requirements.txt               <span class="comment"># Dependencias</span>
+├── README.md                      <span class="comment"># Guía del proyecto</span>
+└── index.html                     <span class="comment"># Esta presentación</span></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CODE PREVIEW ===== -->
+    <section id="code" class="max-w-7xl mx-auto px-6 py-20">
+        <div class="text-center mb-14">
+            <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-4">💻 Vista del Código</h2>
+            <p class="text-gray-500">Clases principales del sistema con documentación y type hints</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="flex flex-wrap gap-2 mb-6 justify-center" id="codeTabs">
+            <button onclick="showCodeTab('libro')" class="code-tab px-5 py-2 rounded-lg font-medium text-sm transition tab-active" data-tab="libro">📗 Clase Libro</button>
+            <button onclick="showCodeTab('prestar')" class="code-tab px-5 py-2 rounded-lg font-medium text-sm transition bg-gray-200 text-gray-700" data-tab="prestar">📤 Prestar</button>
+            <button onclick="showCodeTab('devolver')" class="code-tab px-5 py-2 rounded-lg font-medium text-sm transition bg-gray-200 text-gray-700" data-tab="devolver">📥 Devolver</button>
+            <button onclick="showCodeTab('biblioteca')" class="code-tab px-5 py-2 rounded-lg font-medium text-sm transition bg-gray-200 text-gray-700" data-tab="biblioteca">📦 Biblioteca</button>
+        </div>
+
+        <!-- Code Panels -->
+        <div class="max-w-4xl mx-auto">
+            <div id="code-libro" class="code-panel code-block p-6 text-sm font-mono leading-relaxed">
+<pre><span class="keyword">class</span> <span class="cls">Libro</span>:
+    <span class="string">"""Representa un libro dentro del sistema de biblioteca."""</span>
+
+    <span class="keyword">def</span> <span class="func">__init__</span>(<span class="param">self</span>, <span class="param">titulo</span>: <span class="cls">str</span>, <span class="param">autor</span>: <span class="cls">str</span>,
+                 <span class="param">isbn</span>: <span class="cls">str</span>, <span class="param">genero</span>: <span class="cls">str</span> = <span class="string">"General"</span>):
+        self.titulo = titulo
+        self.autor = autor
+        self.isbn = isbn
+        self.genero = genero
+        self.disponible = <span class="bool">True</span>
+        self.fecha_prestamo = <span class="bool">None</span>
+        self.fecha_devolucion = <span class="bool">None</span>
+        self.prestatario = <span class="bool">None</span>
+
+    <span class="keyword">def</span> <span class="func">to_dict</span>(<span class="param">self</span>) -> <span class="cls">dict</span>:
+        <span class="string">"""Convierte el libro a diccionario para JSON."""</span>
+        <span class="keyword">return</span> {
+            <span class="string">"titulo"</span>: self.titulo,
+            <span class="string">"autor"</span>: self.autor,
+            <span class="string">"isbn"</span>: self.isbn,
+            <span class="string">"disponible"</span>: self.disponible,
+            ...
+        }
+
+    <span class="keyword">@classmethod</span>
+    <span class="keyword">def</span> <span class="func">from_dict</span>(<span class="param">cls</span>, <span class="param">datos</span>: <span class="cls">dict</span>) -> <span class="string">"Libro"</span>:
+        <span class="string">"""Crea Libro desde diccionario."""</span>
+        libro = cls(datos[<span class="string">"titulo"</span>], ...)
+        <span class="keyword">return</span> libro</pre>
+            </div>
+
+            <div id="code-prestar" class="code-panel code-block p-6 text-sm font-mono leading-relaxed hidden">
+<pre><span class="keyword">def</span> <span class="func">prestar_libro</span>(<span class="param">libro</span>: <span class="cls">Libro</span>, <span class="param">prestatario</span>: <span class="cls">str</span>,
+                  <span class="param">dias_prestamo</span>: <span class="cls">int</span> = <span class="param">14</span>) -> <span class="cls">bool</span>:
+    <span class="string">"""
+    Realiza el préstamo de un libro a un prestatario.
+
+    Args:
+        libro: Instancia de Libro a prestar.
+        prestatario: Nombre de quien recibe el libro.
+        dias_prestamo: Días del préstamo (default: 14).
+
+    Returns:
+        True si fue exitoso, False si no está disponible.
+    """</span>
+    <span class="keyword">if not</span> prestatario <span class="keyword">or not</span> prestatario.strip():
+        <span class="keyword">raise</span> <span class="cls">ValueError</span>(<span class="string">"El nombre no puede estar vacío."</span>)
+
+    <span class="keyword">if not</span> libro.disponible:
+        <span class="keyword">return</span> <span class="bool">False</span>
+
+    libro.disponible = <span class="bool">False</span>
+    libro.prestatario = prestatario.strip()
+    libro.fecha_prestamo = datetime.now().isoformat()
+    libro.fecha_devolucion = (
+        datetime.now() + timedelta(days=dias_prestamo)
+    ).isoformat()
+    <span class="keyword">return</span> <span class="bool">True</span></pre>
+            </div>
+
+            <div id="code-devolver" class="code-panel code-block p-6 text-sm font-mono leading-relaxed hidden">
+<pre><span class="keyword">def</span> <span class="func">devolver_libro</span>(<span class="param">libro</span>: <span class="cls">Libro</span>) -> <span class="cls">bool</span>:
+    <span class="string">"""
+    Registra la devolución de un libro prestado.
+
+    Args:
+        libro: Instancia de Libro a devolver.
+
+    Returns:
+        True si fue exitoso, False si ya estaba disponible.
+    """</span>
+    <span class="keyword">if</span> libro.disponible:
+        <span class="keyword">return</span> <span class="bool">False</span>
+
+    libro.disponible = <span class="bool">True</span>
+    libro.prestatario = <span class="bool">None</span>
+    libro.fecha_prestamo = <span class="bool">None</span>
+    libro.fecha_devolucion = <span class="bool">None</span>
+    <span class="keyword">return</span> <span class="bool">True</span></pre>
+            </div>
+
+            <div id="code-biblioteca" class="code-panel code-block p-6 text-sm font-mono leading-relaxed hidden">
+<pre><span class="keyword">class</span> <span class="cls">Biblioteca</span>:
+    <span class="string">"""Gestiona la colección completa de libros."""</span>
+
+    <span class="keyword">def</span> <span class="func">__init__</span>(<span class="param">self</span>):
+        self.libros: list[<span class="cls">Libro</span>] = []
+        self.cargar_datos()
+
+    <span class="keyword">def</span> <span class="func">agregar_libro</span>(<span class="param">self</span>, <span class="param">titulo</span>, <span class="param">autor</span>, <span class="param">isbn</span>, <span class="param">genero</span>=<span class="string">"General"</span>):
+        <span class="string">"""Agrega un nuevo libro a la colección."""</span>
+        <span class="keyword">if</span> self.buscar_por_isbn(isbn):
+            <span class="keyword">raise</span> <span class="cls">ValueError</span>(<span class="string">f"Ya existe ISBN '{isbn}'"</span>)
+        libro = <span class="cls">Libro</span>(titulo, autor, isbn, genero)
+        self.libros.append(libro)
+        self.guardar_datos()
+        <span class="keyword">return</span> libro
+
+    <span class="keyword">def</span> <span class="func">prestar</span>(<span class="param">self</span>, <span class="param">isbn</span>, <span class="param">prestatario</span>, <span class="param">dias</span>=<span class="param">14</span>):
+        <span class="string">"""Presta un libro por ISBN."""</span>
+        libro = self.buscar_por_isbn(isbn)
+        resultado = prestar_libro(libro, prestatario, dias)
+        <span class="keyword">if</span> resultado: self.guardar_datos()
+        <span class="keyword">return</span> resultado
+
+    <span class="keyword">def</span> <span class="func">devolver</span>(<span class="param">self</span>, <span class="param">isbn</span>):
+        <span class="string">"""Devuelve un libro por ISBN."""</span>
+        libro = self.buscar_por_isbn(isbn)
+        resultado = devolver_libro(libro)
+        <span class="keyword">if</span> resultado: self.guardar_datos()
+        <span class="keyword">return</span> resultado
+
+    <span class="keyword">def</span> <span class="func">buscar_por_titulo</span>(<span class="param">self</span>, <span class="param">titulo</span>):
+        <span class="keyword">return</span> [l <span class="keyword">for</span> l <span class="keyword">in</span> self.libros
+                <span class="keyword">if</span> titulo.lower() <span class="keyword">in</span> l.titulo.lower()]
+
+    <span class="keyword">def</span> <span class="func">estadisticas</span>(<span class="param">self</span>) -> <span class="cls">dict</span>:
+        <span class="string">"""Retorna estadísticas de la biblioteca."""</span>
+        <span class="keyword">return</span> {
+            <span class="string">"total"</span>: len(self.libros),
+            <span class="string">"disponibles"</span>: len(self.listar_disponibles()),
+            <span class="string">"prestados"</span>: len(self.listar_prestados()),
+        }</pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== USER STORIES ===== -->
+    <section id="user-stories" class="bg-white py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-14">
+                <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-4">📋 Historias de Usuario</h2>
+                <p class="text-gray-500">5 historias que guían el desarrollo del sistema</p>
+            </div>
+            <div class="max-w-3xl mx-auto space-y-6">
+                <!-- HU-01 -->
+                <div class="hu-card bg-white rounded-xl p-6 shadow-md border-green-500">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full">HU-01</span>
+                        <span class="bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full">Prioridad Alta</span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">📗 Registrar un nuevo libro</h3>
+                    <p class="text-gray-600 text-sm mb-3">
+                        <strong>Como</strong> bibliotecario, <strong>quiero</strong> registrar un nuevo libro con título, autor, ISBN y género,
+                        <strong>para que</strong> quede catalogado y disponible para préstamo.
+                    </p>
+                    <div class="bg-gray-50 rounded-lg p-3 text-xs text-gray-500">
+                        ✅ ISBN único &nbsp;|&nbsp; ✅ Persistencia automática &nbsp;|&nbsp; ✅ Estado inicial "Disponible"
+                    </div>
+                </div>
+                <!-- HU-02 -->
+                <div class="hu-card bg-white rounded-xl p-6 shadow-md border-blue-500">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full">HU-02</span>
+                        <span class="bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full">Prioridad Alta</span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">📤 Prestar un libro</h3>
+                    <p class="text-gray-600 text-sm mb-3">
+                        <strong>Como</strong> bibliotecario, <strong>quiero</strong> registrar el préstamo indicando el prestatario,
+                        <strong>para que</strong> quede constancia de quién tiene el libro y cuándo debe devolverlo.
+                    </p>
+                    <div class="bg-gray-50 rounded-lg p-3 text-xs text-gray-500">
+                        ✅ Solo libros disponibles &nbsp;|&nbsp; ✅ Fecha automática &nbsp;|&nbsp; ✅ Plazo de 14 días
+                    </div>
+                </div>
+                <!-- HU-03 -->
+                <div class="hu-card bg-white rounded-xl p-6 shadow-md border-purple-500">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="bg-purple-100 text-purple-700 text-xs font-bold px-3 py-1 rounded-full">HU-03</span>
+                        <span class="bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full">Prioridad Alta</span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">📥 Devolver un libro</h3>
+                    <p class="text-gray-600 text-sm mb-3">
+                        <strong>Como</strong> bibliotecario, <strong>quiero</strong> registrar la devolución de un libro,
+                        <strong>para que</strong> vuelva a estar disponible para otros usuarios.
+                    </p>
+                    <div class="bg-gray-50 rounded-lg p-3 text-xs text-gray-500">
+                        ✅ Limpia datos de préstamo &nbsp;|&nbsp; ✅ Cambia estado a Disponible &nbsp;|&nbsp; ✅ Persistencia
+                    </div>
+                </div>
+                <!-- HU-04 -->
+                <div class="hu-card bg-white rounded-xl p-6 shadow-md border-amber-500">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="bg-amber-100 text-amber-700 text-xs font-bold px-3 py-1 rounded-full">HU-04</span>
+                        <span class="bg-yellow-100 text-yellow-700 text-xs font-bold px-3 py-1 rounded-full">Prioridad Media</span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">🔍 Buscar libros</h3>
+                    <p class="text-gray-600 text-sm mb-3">
+                        <strong>Como</strong> usuario, <strong>quiero</strong> buscar libros por título, autor o ISBN,
+                        <strong>para que</strong> pueda encontrar rápidamente lo que necesito.
+                    </p>
+                    <div class="bg-gray-50 rounded-lg p-3 text-xs text-gray-500">
+                        ✅ Búsqueda parcial &nbsp;|&nbsp; ✅ Case-insensitive &nbsp;|&nbsp; ✅ Filtro en tiempo real
+                    </div>
+                </div>
+                <!-- HU-05 -->
+                <div class="hu-card bg-white rounded-xl p-6 shadow-md border-teal-500">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="bg-teal-100 text-teal-700 text-xs font-bold px-3 py-1 rounded-full">HU-05</span>
+                        <span class="bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full">Prioridad Baja</span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">📊 Ver estadísticas</h3>
+                    <p class="text-gray-600 text-sm mb-3">
+                        <strong>Como</strong> administrador, <strong>quiero</strong> consultar estadísticas generales,
+                        <strong>para que</strong> pueda tomar decisiones informadas sobre la gestión del acervo.
+                    </p>
+                    <div class="bg-gray-50 rounded-lg p-3 text-xs text-gray-500">
+                        ✅ Total / Disponibles / Prestados &nbsp;|&nbsp; ✅ Desglose por género &nbsp;|&nbsp; ✅ Tiempo real
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FLOW DIAGRAM ===== -->
+    <section id="flow" class="py-20 bg-gradient-to-b from-gray-50 to-blue-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-14">
+                <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-4">📊 Diagrama de Flujo — Préstamo</h2>
+                <p class="text-gray-500">Flujo visual interactivo del proceso de préstamo de un libro</p>
+            </div>
+            <div class="max-w-lg mx-auto space-y-4">
+                <!-- Nodo 1 -->
+                <div class="flow-node bg-blue-600 text-white rounded-2xl p-5 text-center shadow-lg cursor-pointer">
+                    <div class="font-bold text-lg">🚀 INICIO</div>
+                    <div class="text-blue-200 text-sm">Solicitud de préstamo</div>
+                </div>
+                <div class="flex justify-center"><div class="w-0.5 h-6 bg-blue-300"></div></div>
+
+                <!-- Nodo 2 -->
+                <div class="flow-node bg-white rounded-2xl p-5 text-center shadow-lg border-2 border-blue-200 cursor-pointer">
+                    <div class="font-bold">📋 Seleccionar libro</div>
+                    <div class="text-gray-500 text-sm">El usuario elige un libro de la tabla</div>
+                </div>
+                <div class="flex justify-center"><div class="w-0.5 h-6 bg-blue-300"></div></div>
+
+                <!-- Nodo 3 - Decisión -->
+                <div class="flow-node bg-amber-100 rounded-2xl p-5 text-center shadow-lg border-2 border-amber-300 cursor-pointer transform rotate-0">
+                    <div class="font-bold text-amber-800">❓ ¿Libro disponible?</div>
+                </div>
+                <div class="flex justify-center items-start gap-8">
+                    <div class="flex flex-col items-center">
+                        <div class="text-green-600 font-bold text-sm mb-1">✅ SÍ</div>
+                        <div class="w-0.5 h-6 bg-green-300"></div>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="text-red-600 font-bold text-sm mb-1">❌ NO</div>
+                        <div class="flow-node bg-red-100 rounded-xl p-3 text-center border border-red-200 text-sm">
+                            <div class="text-red-700">⚠️ "Libro ya prestado"</div>
+                            <div class="text-red-500 text-xs mt-1">→ FIN</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nodo 4 -->
+                <div class="flow-node bg-white rounded-2xl p-5 text-center shadow-lg border-2 border-green-200 cursor-pointer">
+                    <div class="font-bold">✏️ Ingresar prestatario</div>
+                    <div class="text-gray-500 text-sm">Se solicita nombre del receptor</div>
+                </div>
+                <div class="flex justify-center"><div class="w-0.5 h-6 bg-green-300"></div></div>
+
+                <!-- Nodo 5 - Decisión -->
+                <div class="flow-node bg-amber-100 rounded-2xl p-5 text-center shadow-lg border-2 border-amber-300 cursor-pointer">
+                    <div class="font-bold text-amber-800">❓ ¿Nombre válido?</div>
+                    <div class="text-amber-600 text-xs">No vacío, no solo espacios</div>
+                </div>
+                <div class="flex justify-center"><div class="w-0.5 h-6 bg-green-300"></div></div>
+
+                <!-- Nodo 6 -->
+                <div class="flow-node bg-green-50 rounded-2xl p-5 text-center shadow-lg border-2 border-green-300 cursor-pointer">
+                    <div class="font-bold text-green-800">⚙️ Registrar préstamo</div>
+                    <div class="text-green-600 text-sm mt-2 text-left space-y-1">
+                        <div>• disponible = <code class="bg-green-100 px-1 rounded">False</code></div>
+                        <div>• prestatario = <code class="bg-green-100 px-1 rounded">"nombre"</code></div>
+                        <div>• fecha_prestamo = <code class="bg-green-100 px-1 rounded">hoy</code></div>
+                        <div>• fecha_devolucion = <code class="bg-green-100 px-1 rounded">hoy + 14 días</code></div>
+                    </div>
+                </div>
+                <div class="flex justify-center"><div class="w-0.5 h-6 bg-green-300"></div></div>
+
+                <!-- Nodo 7 -->
+                <div class="flow-node bg-white rounded-2xl p-5 text-center shadow-lg border-2 border-blue-200 cursor-pointer">
+                    <div class="font-bold">💾 Guardar en JSON</div>
+                    <div class="text-gray-500 text-sm">Persistir cambios + actualizar tabla</div>
+                </div>
+                <div class="flex justify-center"><div class="w-0.5 h-6 bg-blue-300"></div></div>
+
+                <!-- Nodo Final -->
+                <div class="flow-node bg-blue-600 text-white rounded-2xl p-5 text-center shadow-lg cursor-pointer">
+                    <div class="font-bold text-lg">✅ FIN</div>
+                    <div class="text-blue-200 text-sm">Préstamo registrado exitosamente</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TESTS ===== -->
+    <section id="tests" class="bg-white py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-14">
+                <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-4">🧪 Tests Unitarios</h2>
+                <p class="text-gray-500">28 tests automatizados con cobertura completa</p>
+            </div>
+            <div class="max-w-3xl mx-auto">
+                <div class="code-block p-6" id="testResults">
+                    <div class="flex items-center gap-3 mb-4 border-b border-gray-700 pb-3">
+                        <span class="text-lg">🧪</span>
+                        <span class="text-gray-300 font-mono text-sm">python -m pytest tests/test_biblioteca.py -v</span>
+                        <button onclick="runTests()" class="ml-auto bg-green-600 text-white text-xs px-4 py-1.5 rounded-lg hover:bg-green-500 transition font-bold cursor-pointer">
+                            ▶ Ejecutar
+                        </button>
+                    </div>
+                    <div id="testOutput" class="font-mono text-xs space-y-1">
+                        <div class="text-gray-500">Presiona "Ejecutar" para simular los tests...</div>
+                    </div>
+                </div>
+
+                <!-- Cobertura -->
+                <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-gray-50 rounded-xl p-4 text-center border">
+                        <div class="text-2xl font-black text-green-600">7</div>
+                        <div class="text-xs text-gray-500 mt-1">TestLibro</div>
+                    </div>
+                    <div class="bg-gray-50 rounded-xl p-4 text-center border">
+                        <div class="text-2xl font-black text-green-600">5</div>
+                        <div class="text-xs text-gray-500 mt-1">TestPrestar</div>
+                    </div>
+                    <div class="bg-gray-50 rounded-xl p-4 text-center border">
+                        <div class="text-2xl font-black text-green-600">3</div>
+                        <div class="text-xs text-gray-500 mt-1">TestDevolver</div>
+                    </div>
+                    <div class="bg-gray-50 rounded-xl p-4 text-center border">
+                        <div class="text-2xl font-black text-green-600">13</div>
+                        <div class="text-xs text-gray-500 mt-1">TestBiblioteca</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ETHICS ===== -->
+    <section id="ethics" class="py-20 bg-gradient-to-b from-blue-50 to-gray-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-14">
+                <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-4">🤔 Reflexión Ética</h2>
+                <p class="text-gray-500">Consideraciones sobre el uso responsable de IA en el desarrollo</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <!-- Benefits -->
+                <div class="bg-green-50 rounded-2xl p-8 border border-green-200">
+                    <h3 class="text-xl font-bold text-green-800 mb-6">✅ Beneficios Observados</h3>
+                    <div class="space-y-4">
+                        <div class="flex gap-3">
+                            <span class="text-green-500 text-xl">⚡</span>
+                            <div>
+                                <div class="font-bold text-sm">Velocidad</div>
+                                <div class="text-gray-600 text-xs">Prototipo completo en minutos vs. horas</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <span class="text-green-500 text-xl">🎯</span>
+                            <div>
+                                <div class="font-bold text-sm">Consistencia</div>
+                                <div class="text-gray-600 text-xs">Estilo uniforme y documentación completa</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <span class="text-green-500 text-xl">🛡️</span>
+                            <div>
+                                <div class="font-bold text-sm">Buenas prácticas</div>
+                                <div class="text-gray-600 text-xs">Patrones de diseño aplicados automáticamente</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <span class="text-green-500 text-xl">🧪</span>
+                            <div>
+                                <div class="font-bold text-sm">Cobertura de tests</div>
+                                <div class="text-gray-600 text-xs">Casos límite que un humano podría olvidar</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Risks -->
+                <div class="bg-red-50 rounded-2xl p-8 border border-red-200">
+                    <h3 class="text-xl font-bold text-red-800 mb-6">⚠️ Riesgos y Consideraciones</h3>
+                    <div class="space-y-4">
+                        <div class="flex gap-3">
+                            <span class="text-red-500 text-xl">🔗</span>
+                            <div>
+                                <div class="font-bold text-sm">Dependencia tecnológica</div>
+                                <div class="text-gray-600 text-xs">No delegar 100% el pensamiento crítico</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <span class="text-red-500 text-xl">👁️</span>
+                            <div>
+                                <div class="font-bold text-sm">Revisión obligatoria</div>
+                                <div class="text-gray-600 text-xs">Todo código IA debe ser revisado por humanos</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <span class="text-red-500 text-xl">©️</span>
+                            <div>
+                                <div class="font-bold text-sm">Propiedad intelectual</div>
+                                <div class="text-gray-600 text-xs">Implicaciones legales del código generado</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <span class="text-red-500 text-xl">🔒</span>
+                            <div>
+                                <div class="font-bold text-sm">Seguridad</div>
+                                <div class="text-gray-600 text-xs">Posibles vulnerabilidades requieren auditoría</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Conclusion -->
+            <div class="max-w-3xl mx-auto mt-12 bg-blue-600 text-white rounded-2xl p-8 text-center shadow-xl">
+                <div class="text-4xl mb-4">💡</div>
+                <p class="text-lg font-medium leading-relaxed">
+                    "La IA no reemplaza al programador; lo <strong>potencia</strong>. El valor real se obtiene
+                    al combinar la capacidad generativa de la IA con el criterio, experiencia y
+                    supervisión de desarrolladores humanos."
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TIMELINE ===== -->
+    <section class="bg-white py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-14">
+                <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-4">🕐 Fases del Desarrollo con IA</h2>
+            </div>
+            <div class="max-w-2xl mx-auto border-l-2 border-blue-200 pl-8 space-y-10">
+                <div class="relative timeline-dot">
+                    <div class="text-xs text-blue-500 font-bold mb-1">FASE 1</div>
+                    <h3 class="font-bold text-lg">📋 Planificación y Análisis</h3>
+                    <p class="text-gray-500 text-sm mt-1">Definición de requisitos, historias de usuario y arquitectura del sistema.</p>
+                </div>
+                <div class="relative timeline-dot">
+                    <div class="text-xs text-blue-500 font-bold mb-1">FASE 2</div>
+                    <h3 class="font-bold text-lg">💻 Generación de Código</h3>
+                    <p class="text-gray-500 text-sm mt-1">Clases Libro y Biblioteca, funciones de préstamo/devolución, GUI con Tkinter.</p>
+                </div>
+                <div class="relative timeline-dot">
+                    <div class="text-xs text-blue-500 font-bold mb-1">FASE 3</div>
+                    <h3 class="font-bold text-lg">🧪 Testing</h3>
+                    <p class="text-gray-500 text-sm mt-1">28 tests unitarios cubriendo funcionalidad, edge cases y persistencia.</p>
+                </div>
+                <div class="relative timeline-dot">
+                    <div class="text-xs text-blue-500 font-bold mb-1">FASE 4</div>
+                    <h3 class="font-bold text-lg">📝 Documentación</h3>
+                    <p class="text-gray-500 text-sm mt-1">README, proceso IA, diagramas de flujo, historias de usuario y presentación web.</p>
+                </div>
+                <div class="relative timeline-dot">
+                    <div class="text-xs text-blue-500 font-bold mb-1">FASE 5</div>
+                    <h3 class="font-bold text-lg">🤔 Reflexión Ética</h3>
+                    <p class="text-gray-500 text-sm mt-1">Análisis de beneficios, riesgos y recomendaciones sobre el uso de IA.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="text-3xl mb-4">📚</div>
+            <h3 class="font-bold text-xl mb-2">Sistema de Gestión de Biblioteca</h3>
+            <p class="text-gray-400 text-sm mb-6">Proyecto Piloto con IA — Talento Solutions © 2025</p>
+            <div class="flex justify-center gap-6 text-sm text-gray-500">
+                <span>Python 3.10+</span>
+                <span>•</span>
+                <span>Tkinter</span>
+                <span>•</span>
+                <span>pytest</span>
+                <span>•</span>
+                <span>JSON</span>
+            </div>
+            <p class="text-gray-600 text-xs mt-6">Desarrollado con asistencia de Claude (Anthropic) como demostración del uso responsable de IA en desarrollo de software.</p>
+        </div>
+    </footer>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // ---- Code Tabs ----
+        function showCodeTab(tab) {
+            document.querySelectorAll('.code-panel').forEach(p => p.classList.add('hidden'));
+            document.querySelectorAll('.code-tab').forEach(t => {
+                t.classList.remove('tab-active');
+                t.classList.add('bg-gray-200', 'text-gray-700');
+            });
+            document.getElementById('code-' + tab).classList.remove('hidden');
+            const activeBtn = document.querySelector(`.code-tab[data-tab="${tab}"]`);
+            activeBtn.classList.add('tab-active');
+            activeBtn.classList.remove('bg-gray-200', 'text-gray-700');
+        }
+
+        // ---- Simulated Test Runner ----
+        function runTests() {
+            const output = document.getElementById('testOutput');
+            output.innerHTML = '<div class="text-yellow-400">Ejecutando tests...</div>';
+
+            const tests = [
+                { suite: "TestLibro", name: "test_creacion_libro", status: "PASSED" },
+                { suite: "TestLibro", name: "test_genero_por_defecto", status: "PASSED" },
+                { suite: "TestLibro", name: "test_str_disponible", status: "PASSED" },
+                { suite: "TestLibro", name: "test_str_prestado", status: "PASSED" },
+                { suite: "TestLibro", name: "test_to_dict", status: "PASSED" },
+                { suite: "TestLibro", name: "test_from_dict", status: "PASSED" },
+                { suite: "TestLibro", name: "test_round_trip_dict", status: "PASSED" },
+                { suite: "TestPrestarLibro", name: "test_prestamo_exitoso", status: "PASSED" },
+                { suite: "TestPrestarLibro", name: "test_prestamo_libro_no_disponible", status: "PASSED" },
+                { suite: "TestPrestarLibro", name: "test_prestamo_prestatario_vacio", status: "PASSED" },
+                { suite: "TestPrestarLibro", name: "test_prestamo_prestatario_solo_espacios", status: "PASSED" },
+                { suite: "TestPrestarLibro", name: "test_prestamo_strip_nombre", status: "PASSED" },
+                { suite: "TestDevolverLibro", name: "test_devolucion_exitosa", status: "PASSED" },
+                { suite: "TestDevolverLibro", name: "test_devolucion_libro_disponible", status: "PASSED" },
+                { suite: "TestDevolverLibro", name: "test_ciclo_prestamo_devolucion", status: "PASSED" },
+                { suite: "TestBiblioteca", name: "test_agregar_libro", status: "PASSED" },
+                { suite: "TestBiblioteca", name: "test_agregar_isbn_duplicado", status: "PASSED" },
+                { suite: "TestBiblioteca", name: "test_buscar_por_isbn", status: "PASSED" },
+                { suite: "TestBiblioteca", name: "test_buscar_isbn_inexistente", status: "PASSED" },
+                { suite: "TestBiblioteca", name: "test_buscar_por_titulo", status: "PASSED" },
+                { suite: "TestBiblioteca", name: "test_buscar_por_autor", status: "PASSED" },
+                { suite: "TestBiblioteca", name: "test_listar_disponibles", status: "PASSED" },
+                { suite: "TestBiblioteca", name: "test_listar_prestados", status: "PASSED" },
+                { suite: "TestBiblioteca", name: "test_prestar_y_devolver", status: "PASSED" },
+                { suite: "TestBiblioteca", name: "test_prestar_isbn_inexistente", status: "PASSED" },
+                { suite: "TestBiblioteca", name: "test_eliminar_libro", status: "PASSED" },
+                { suite: "TestBiblioteca", name: "test_eliminar_libro_prestado", status: "PASSED" },
+                { suite: "TestBiblioteca", name: "test_estadisticas", status: "PASSED" },
+            ];
+
+            let html = '';
+            let delay = 300;
+
+            tests.forEach((test, i) => {
+                setTimeout(() => {
+                    const line = `<div class="test-anim" style="animation-delay: 0s">` +
+                        `<span class="text-gray-400">tests/test_biblioteca.py::</span>` +
+                        `<span class="text-blue-400">${test.suite}</span>` +
+                        `<span class="text-gray-500">::</span>` +
+                        `<span class="text-gray-300">${test.name}</span> ` +
+                        `<span class="test-pass font-bold">✓ ${test.status}</span></div>`;
+                    output.innerHTML += line;
+                    output.scrollTop = output.scrollHeight;
+
+                    if (i === tests.length - 1) {
+                        setTimeout(() => {
+                            output.innerHTML += `<div class="mt-4 pt-3 border-t border-gray-700">` +
+                                `<span class="test-pass font-bold text-sm">========================= ` +
+                                `${tests.length} passed in 0.15s =========================</span></div>`;
+                        }, 200);
+                    }
+                }, delay * (i + 1));
+            });
+
+            setTimeout(() => {
+                output.innerHTML = '<div class="text-yellow-400 mb-2">Collecting tests...</div>';
+            }, 100);
+        }
+
+        // ---- Smooth scroll ----
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Close mobile menu
+                    document.getElementById('mobileMenu').classList.add('hidden');
+                }
+            });
+        });
+
+        // ---- Intersection Observer for animations ----
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.hu-card, .flow-node, .stat-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

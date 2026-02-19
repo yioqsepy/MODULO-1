@@ -1,0 +1,15 @@
+# =============================================================================
+# Requisitos del Sistema de Gestión de Biblioteca
+# Talento Solutions - Proyecto Piloto con IA
+# =============================================================================
+
+# Testing
+pytest>=7.0.0
+pytest-cov>=4.0.0
+
+# Tkinter viene incluido con Python (no requiere instalación vía pip)
+# Si estás en Linux y no lo tienes, instala: sudo apt-get install python3-tk
+
+# Linting y formato (opcionales, recomendados)
+# flake8>=6.0.0
+# black>=23.0.0

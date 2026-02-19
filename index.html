@@ -83,6 +83,71 @@
         @keyframes slideRight {
             to { opacity: 1; transform: translateX(0); }
         }
+
+        /* ===== LIBRARY APP MODAL ===== */
+        .app-overlay {
+            position: fixed; inset: 0; z-index: 9999;
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(6px);
+            display: none; align-items: center; justify-content: center;
+            padding: 16px;
+        }
+        .app-overlay.active { display: flex; }
+        .app-window {
+            background: #f0f4f8; border-radius: 16px; width: 100%; max-width: 1100px;
+            height: 90vh; max-height: 750px; display: flex; flex-direction: column;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.4); overflow: hidden;
+            animation: appOpen 0.35s ease-out;
+        }
+        @keyframes appOpen {
+            from { transform: scale(0.9) translateY(30px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        .app-header { background: #1e3a5f; color: white; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+        .app-header h2 { font-size: 16px; font-weight: 700; }
+        .app-close { background: #ef4444; color: white; border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+        .app-close:hover { background: #dc2626; transform: scale(1.1); }
+        .app-body { display: flex; flex: 1; overflow: hidden; }
+        .app-sidebar { width: 200px; background: #f0f4f8; padding: 16px 12px; border-right: 1px solid #e2e8f0; flex-shrink: 0; overflow-y: auto; }
+        .app-sidebar h3 { font-size: 14px; font-weight: 700; color: #1e3a5f; margin-bottom: 10px; }
+        .app-btn { display: flex; align-items: center; gap: 8px; width: 100%; padding: 9px 12px; margin-bottom: 5px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 13px; color: #1e3a5f; cursor: pointer; transition: all 0.2s; text-align: left; font-family: 'Inter', sans-serif; }
+        .app-btn:hover { background: #dbeafe; border-color: #93c5fd; transform: translateX(3px); }
+        .app-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; padding: 16px; }
+        .app-stats { background: #e8f0fe; border: 1px solid #bfdbfe; border-radius: 10px; padding: 10px 16px; margin-bottom: 12px; font-size: 13px; color: #1e3a5f; font-weight: 500; flex-shrink: 0; }
+        .app-search { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; flex-shrink: 0; }
+        .app-search input { flex: 1; padding: 8px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 13px; font-family: 'Inter', sans-serif; outline: none; transition: border 0.2s; }
+        .app-search input:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.15); }
+        .app-table-wrap { flex: 1; overflow: auto; border: 1px solid #e2e8f0; border-radius: 10px; background: white; }
+        .app-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        .app-table thead { position: sticky; top: 0; z-index: 2; }
+        .app-table th { background: #f1f5f9; padding: 10px 12px; text-align: left; font-weight: 700; color: #475569; border-bottom: 2px solid #e2e8f0; white-space: nowrap; }
+        .app-table td { padding: 9px 12px; border-bottom: 1px solid #f1f5f9; color: #334155; }
+        .app-table tr { cursor: pointer; transition: background 0.15s; }
+        .app-table tbody tr:hover { background: #eff6ff; }
+        .app-table tbody tr.selected { background: #dbeafe; outline: 2px solid #3b82f6; outline-offset: -2px; }
+        .app-table .tag-disp { background: #dcfce7; color: #166534; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+        .app-table .tag-prest { background: #fef2f2; color: #991b1b; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+        .app-footer { background: #1e3a5f; color: #a0c4ff; padding: 8px 20px; font-size: 11px; text-align: center; flex-shrink: 0; }
+        .app-modal-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; z-index: 10; border-radius: 16px; }
+        .app-modal { background: white; border-radius: 14px; padding: 24px; width: 90%; max-width: 420px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); animation: appOpen 0.25s ease-out; }
+        .app-modal h3 { font-size: 16px; font-weight: 700; color: #1e3a5f; margin-bottom: 16px; }
+        .app-modal label { display: block; font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 4px; margin-top: 10px; }
+        .app-modal input { width: 100%; padding: 8px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 13px; font-family: 'Inter', sans-serif; outline: none; box-sizing: border-box; }
+        .app-modal input:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.15); }
+        .app-modal-btns { display: flex; gap: 8px; margin-top: 20px; justify-content: flex-end; }
+        .app-modal-btns button { padding: 8px 20px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; font-family: 'Inter', sans-serif; transition: all 0.2s; }
+        .btn-primary { background: #1e3a5f; color: white; }
+        .btn-primary:hover { background: #2563eb; }
+        .btn-cancel { background: #f1f5f9; color: #475569; }
+        .btn-cancel:hover { background: #e2e8f0; }
+        .toast { position: absolute; top: 70px; right: 20px; padding: 12px 20px; border-radius: 10px; font-size: 13px; font-weight: 500; z-index: 20; animation: toastIn 0.3s ease-out; box-shadow: 0 8px 30px rgba(0,0,0,0.15); }
+        .toast-success { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+        .toast-error { background: #fef2f2; color: #991b1b; border: 1px solid #fca5a5; }
+        .toast-info { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; }
+        @keyframes toastIn { from { transform: translateX(30px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @media (max-width: 768px) {
+            .app-sidebar { display: none; }
+            .app-window { height: 95vh; max-height: none; }
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -99,7 +164,8 @@
                 <span class="text-3xl">📚</span>
                 <span class="font-bold text-lg">Talento Solutions</span>
             </div>
-            <div class="hidden md:flex gap-6 text-sm font-medium text-blue-200">
+            <div class="hidden md:flex gap-6 text-sm font-medium text-blue-200 items-center">
+                <button onclick="abrirBiblioteca()" class="bg-green-500 text-white px-3 py-1 rounded-lg text-xs font-bold hover:bg-green-400 transition cursor-pointer">▶ Ejecutar</button>
                 <a href="#overview" class="hover:text-white transition">Resumen</a>
                 <a href="#architecture" class="hover:text-white transition">Arquitectura</a>
                 <a href="#code" class="hover:text-white transition">Código</a>
@@ -131,6 +197,9 @@
                 planificación, código, testing, documentación y reflexión ética.
             </p>
             <div class="flex flex-wrap justify-center gap-4">
+                <button onclick="abrirBiblioteca()" class="px-8 py-3 bg-green-500 text-white font-bold rounded-xl hover:bg-green-400 transition shadow-lg shadow-green-500/30 cursor-pointer flex items-center gap-2 border-2 border-green-300 animate-pulse hover:animate-none">
+                    ▶ Ejecutar Biblioteca 📚
+                </button>
                 <a href="#code" class="px-8 py-3 bg-white text-blue-900 font-bold rounded-xl hover:bg-blue-50 transition shadow-lg">
                     Ver el Código 💻
                 </a>
@@ -733,6 +802,59 @@
         </div>
     </section>
 
+    <!-- ===== LIBRARY APP OVERLAY ===== -->
+    <div class="app-overlay" id="appOverlay">
+        <div class="app-window" id="appWindow">
+            <div class="app-header">
+                <h2>📚  Sistema de Gestión de Biblioteca</h2>
+                <div style="display:flex;align-items:center;gap:12px;">
+                    <span style="font-size:11px;color:#a0c4ff;">Talento Solutions — Proyecto Piloto IA</span>
+                    <button class="app-close" onclick="cerrarBiblioteca()" title="Cerrar">✕</button>
+                </div>
+            </div>
+            <div class="app-body">
+                <div class="app-sidebar">
+                    <h3>Acciones</h3>
+                    <button class="app-btn" onclick="appAgregar()">➕ Agregar Libro</button>
+                    <button class="app-btn" onclick="appBuscar()">🔍 Buscar Libro</button>
+                    <button class="app-btn" onclick="appPrestar()">📤 Prestar Libro</button>
+                    <button class="app-btn" onclick="appDevolver()">📥 Devolver Libro</button>
+                    <button class="app-btn" onclick="appEliminar()">🗑️ Eliminar Libro</button>
+                    <button class="app-btn" onclick="appEstadisticas()">📊 Estadísticas</button>
+                    <button class="app-btn" onclick="appActualizar()">🔄 Actualizar</button>
+                </div>
+                <div class="app-main">
+                    <div class="app-stats" id="appStats">📚 Total: 0   |   ✅ Disponibles: 0   |   📕 Prestados: 0</div>
+                    <div class="app-search">
+                        <span style="font-size:14px;">🔎</span>
+                        <span style="font-size:13px;color:#64748b;">Filtro rápido:</span>
+                        <input type="text" id="appFilterInput" placeholder="Buscar por título, autor, ISBN o género..." oninput="appFiltrar()">
+                    </div>
+                    <div class="app-table-wrap">
+                        <table class="app-table">
+                            <thead>
+                                <tr>
+                                    <th>ISBN</th>
+                                    <th>Título</th>
+                                    <th>Autor</th>
+                                    <th>Género</th>
+                                    <th>Estado</th>
+                                    <th>Prestatario</th>
+                                </tr>
+                            </thead>
+                            <tbody id="appTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="app-footer">Desarrollado con apoyo de IA • Talento Solutions © 2025</div>
+            <!-- Modals container -->
+            <div id="appModalContainer"></div>
+            <!-- Toast container -->
+            <div id="appToastContainer"></div>
+        </div>
+    </div>
+
     <!-- ===== FOOTER ===== -->
     <footer class="bg-gray-900 text-white py-12">
         <div class="max-w-7xl mx-auto px-6 text-center">
@@ -856,6 +978,406 @@
 
         document.querySelectorAll('.hu-card, .flow-node, .stat-card').forEach(el => {
             observer.observe(el);
+        });
+
+        // ================================================================
+        // SISTEMA DE GESTIÓN DE BIBLIOTECA — Versión Web Interactiva
+        // Réplica funcional completa del sistema Python/Tkinter
+        // ================================================================
+
+        const STORAGE_KEY = 'biblioteca_datos';
+        let libros = [];
+        let selectedISBN = null;
+
+        // -- Datos de ejemplo (mismos que en Python) --
+        const librosEjemplo = [
+            { titulo: "Cien años de soledad", autor: "Gabriel García Márquez", isbn: "978-0-06-088328-7", genero: "Novela", disponible: true, fecha_prestamo: null, fecha_devolucion: null, prestatario: null },
+            { titulo: "Don Quijote de la Mancha", autor: "Miguel de Cervantes", isbn: "978-84-376-0494-7", genero: "Clásico", disponible: true, fecha_prestamo: null, fecha_devolucion: null, prestatario: null },
+            { titulo: "El Principito", autor: "Antoine de Saint-Exupéry", isbn: "978-0-15-601219-5", genero: "Infantil", disponible: true, fecha_prestamo: null, fecha_devolucion: null, prestatario: null },
+            { titulo: "1984", autor: "George Orwell", isbn: "978-0-451-52493-5", genero: "Ciencia Ficción", disponible: true, fecha_prestamo: null, fecha_devolucion: null, prestatario: null },
+            { titulo: "Rayuela", autor: "Julio Cortázar", isbn: "978-84-376-0602-6", genero: "Novela", disponible: true, fecha_prestamo: null, fecha_devolucion: null, prestatario: null },
+            { titulo: "La sombra del viento", autor: "Carlos Ruiz Zafón", isbn: "978-84-08-04171-3", genero: "Misterio", disponible: true, fecha_prestamo: null, fecha_devolucion: null, prestatario: null },
+            { titulo: "Crónica de una muerte anunciada", autor: "Gabriel García Márquez", isbn: "978-84-376-0781-8", genero: "Novela", disponible: true, fecha_prestamo: null, fecha_devolucion: null, prestatario: null },
+            { titulo: "Harry Potter y la piedra filosofal", autor: "J.K. Rowling", isbn: "978-84-7888-445-8", genero: "Fantasía", disponible: true, fecha_prestamo: null, fecha_devolucion: null, prestatario: null },
+        ];
+
+        function cargarDatos() {
+            const datos = localStorage.getItem(STORAGE_KEY);
+            if (datos) {
+                libros = JSON.parse(datos);
+            } else {
+                libros = JSON.parse(JSON.stringify(librosEjemplo));
+                guardarDatos();
+            }
+        }
+
+        function guardarDatos() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(libros));
+        }
+
+        function buscarPorISBN(isbn) {
+            return libros.find(l => l.isbn === isbn) || null;
+        }
+
+        // -- Renderizar tabla --
+        function renderTabla(lista) {
+            const body = document.getElementById('appTableBody');
+            const data = lista || libros;
+            selectedISBN = null;
+            let html = '';
+            data.forEach(libro => {
+                const estado = libro.disponible
+                    ? '<span class="tag-disp">✅ Disp.</span>'
+                    : '<span class="tag-prest">📕 Prest.</span>';
+                const prest = libro.prestatario || '—';
+                html += `<tr onclick="seleccionarFila('${libro.isbn}', this)" ondblclick="appVerDetalle('${libro.isbn}')">
+                    <td style="font-family:monospace;font-size:11px;">${libro.isbn}</td>
+                    <td style="font-weight:500;">${libro.titulo}</td>
+                    <td>${libro.autor}</td>
+                    <td>${libro.genero}</td>
+                    <td>${estado}</td>
+                    <td>${prest}</td>
+                </tr>`;
+            });
+            if (data.length === 0) {
+                html = '<tr><td colspan="6" style="text-align:center;padding:30px;color:#94a3b8;">No se encontraron libros</td></tr>';
+            }
+            body.innerHTML = html;
+            renderStats();
+        }
+
+        function renderStats() {
+            const total = libros.length;
+            const disp = libros.filter(l => l.disponible).length;
+            const prest = libros.filter(l => !l.disponible).length;
+            document.getElementById('appStats').textContent =
+                `📚 Total: ${total}   |   ✅ Disponibles: ${disp}   |   📕 Prestados: ${prest}`;
+        }
+
+        function seleccionarFila(isbn, tr) {
+            document.querySelectorAll('#appTableBody tr').forEach(r => r.classList.remove('selected'));
+            tr.classList.add('selected');
+            selectedISBN = isbn;
+        }
+
+        // -- Toast notifications --
+        function showToast(msg, tipo) {
+            const container = document.getElementById('appToastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${tipo || 'info'}`;
+            toast.textContent = msg;
+            container.appendChild(toast);
+            setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.3s'; }, 2500);
+            setTimeout(() => toast.remove(), 2800);
+        }
+
+        // -- Modal helpers --
+        function showModal(html) {
+            document.getElementById('appModalContainer').innerHTML =
+                `<div class="app-modal-overlay" onclick="if(event.target===this)cerrarModal()">
+                    <div class="app-modal">${html}</div>
+                </div>`;
+        }
+        function cerrarModal() {
+            document.getElementById('appModalContainer').innerHTML = '';
+        }
+
+        // -- Abrir / Cerrar app --
+        function abrirBiblioteca() {
+            cargarDatos();
+            renderTabla();
+            document.getElementById('appOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            document.getElementById('appFilterInput').value = '';
+        }
+        function cerrarBiblioteca() {
+            document.getElementById('appOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+            cerrarModal();
+        }
+
+        // -- Filtro rápido --
+        function appFiltrar() {
+            const texto = document.getElementById('appFilterInput').value.toLowerCase().trim();
+            if (!texto) { renderTabla(); return; }
+            const filtrados = libros.filter(l =>
+                l.titulo.toLowerCase().includes(texto) ||
+                l.autor.toLowerCase().includes(texto) ||
+                l.isbn.toLowerCase().includes(texto) ||
+                l.genero.toLowerCase().includes(texto)
+            );
+            renderTabla(filtrados);
+        }
+
+        // -- Actualizar --
+        function appActualizar() {
+            document.getElementById('appFilterInput').value = '';
+            renderTabla();
+            showToast('Lista actualizada', 'success');
+        }
+
+        // -- Agregar libro --
+        function appAgregar() {
+            showModal(`
+                <h3>➕ Agregar Libro</h3>
+                <label>Título: *</label>
+                <input type="text" id="mTitulo" placeholder="Título del libro">
+                <label>Autor: *</label>
+                <input type="text" id="mAutor" placeholder="Autor del libro">
+                <label>ISBN: *</label>
+                <input type="text" id="mISBN" placeholder="ISBN único">
+                <label>Género:</label>
+                <input type="text" id="mGenero" placeholder="General">
+                <div class="app-modal-btns">
+                    <button class="btn-cancel" onclick="cerrarModal()">Cancelar</button>
+                    <button class="btn-primary" onclick="appGuardarLibro()">💾 Guardar</button>
+                </div>
+            `);
+            setTimeout(() => document.getElementById('mTitulo')?.focus(), 100);
+        }
+
+        function appGuardarLibro() {
+            const titulo = document.getElementById('mTitulo').value.trim();
+            const autor = document.getElementById('mAutor').value.trim();
+            const isbn = document.getElementById('mISBN').value.trim();
+            const genero = document.getElementById('mGenero').value.trim() || 'General';
+            if (!titulo || !autor || !isbn) {
+                showToast('Título, Autor e ISBN son obligatorios', 'error');
+                return;
+            }
+            if (buscarPorISBN(isbn)) {
+                showToast(`Ya existe un libro con ISBN '${isbn}'`, 'error');
+                return;
+            }
+            libros.push({
+                titulo, autor, isbn, genero,
+                disponible: true, fecha_prestamo: null, fecha_devolucion: null, prestatario: null
+            });
+            guardarDatos();
+            cerrarModal();
+            renderTabla();
+            showToast(`Libro '${titulo}' agregado correctamente`, 'success');
+        }
+
+        // -- Buscar libro --
+        function appBuscar() {
+            showModal(`
+                <h3>🔍 Buscar Libro</h3>
+                <label>Buscar por título, autor o ISBN:</label>
+                <input type="text" id="mBuscar" placeholder="Ingrese texto a buscar...">
+                <div class="app-modal-btns">
+                    <button class="btn-cancel" onclick="cerrarModal()">Cancelar</button>
+                    <button class="btn-primary" onclick="appEjecutarBusqueda()">🔍 Buscar</button>
+                </div>
+            `);
+            setTimeout(() => document.getElementById('mBuscar')?.focus(), 100);
+        }
+
+        function appEjecutarBusqueda() {
+            const texto = document.getElementById('mBuscar').value.trim();
+            if (texto) {
+                document.getElementById('appFilterInput').value = texto;
+                appFiltrar();
+                cerrarModal();
+            }
+        }
+
+        // -- Prestar libro --
+        function appPrestar() {
+            if (!selectedISBN) {
+                showToast('Seleccione un libro de la tabla primero', 'info');
+                return;
+            }
+            const libro = buscarPorISBN(selectedISBN);
+            if (!libro) return;
+            if (!libro.disponible) {
+                showToast(`El libro ya está prestado a '${libro.prestatario}'`, 'error');
+                return;
+            }
+            showModal(`
+                <h3>📤 Préstamo de Libro</h3>
+                <div style="background:#f0f9ff;padding:10px 14px;border-radius:8px;margin-bottom:12px;font-size:12px;color:#1e40af;">
+                    📗 <strong>${libro.titulo}</strong> — ${libro.autor}
+                </div>
+                <label>¿A quién se presta?</label>
+                <input type="text" id="mPrestatario" placeholder="Nombre completo del prestatario">
+                <div class="app-modal-btns">
+                    <button class="btn-cancel" onclick="cerrarModal()">Cancelar</button>
+                    <button class="btn-primary" onclick="appEjecutarPrestamo('${libro.isbn}')">📤 Prestar</button>
+                </div>
+            `);
+            setTimeout(() => document.getElementById('mPrestatario')?.focus(), 100);
+        }
+
+        function appEjecutarPrestamo(isbn) {
+            const prestatario = document.getElementById('mPrestatario').value.trim();
+            if (!prestatario) {
+                showToast('El nombre del prestatario no puede estar vacío', 'error');
+                return;
+            }
+            const libro = buscarPorISBN(isbn);
+            if (!libro || !libro.disponible) return;
+
+            const ahora = new Date();
+            const devolucion = new Date(ahora);
+            devolucion.setDate(devolucion.getDate() + 14);
+
+            libro.disponible = false;
+            libro.prestatario = prestatario;
+            libro.fecha_prestamo = ahora.toISOString();
+            libro.fecha_devolucion = devolucion.toISOString();
+
+            guardarDatos();
+            cerrarModal();
+            renderTabla();
+            showToast(`'${libro.titulo}' prestado a ${prestatario}`, 'success');
+        }
+
+        // -- Devolver libro --
+        function appDevolver() {
+            if (!selectedISBN) {
+                showToast('Seleccione un libro de la tabla primero', 'info');
+                return;
+            }
+            const libro = buscarPorISBN(selectedISBN);
+            if (!libro) return;
+            if (libro.disponible) {
+                showToast('Este libro ya está disponible, no necesita devolución', 'info');
+                return;
+            }
+            showModal(`
+                <h3>📥 Confirmar Devolución</h3>
+                <div style="background:#fef2f2;padding:10px 14px;border-radius:8px;margin-bottom:12px;font-size:12px;color:#991b1b;">
+                    📕 <strong>${libro.titulo}</strong><br>
+                    Prestado a: <strong>${libro.prestatario}</strong>
+                </div>
+                <p style="font-size:13px;color:#475569;">¿Confirmar devolución de este libro?</p>
+                <div class="app-modal-btns">
+                    <button class="btn-cancel" onclick="cerrarModal()">Cancelar</button>
+                    <button class="btn-primary" onclick="appEjecutarDevolucion('${libro.isbn}')">📥 Devolver</button>
+                </div>
+            `);
+        }
+
+        function appEjecutarDevolucion(isbn) {
+            const libro = buscarPorISBN(isbn);
+            if (!libro || libro.disponible) return;
+            libro.disponible = true;
+            libro.prestatario = null;
+            libro.fecha_prestamo = null;
+            libro.fecha_devolucion = null;
+            guardarDatos();
+            cerrarModal();
+            renderTabla();
+            showToast(`'${libro.titulo}' devuelto correctamente`, 'success');
+        }
+
+        // -- Eliminar libro --
+        function appEliminar() {
+            if (!selectedISBN) {
+                showToast('Seleccione un libro de la tabla primero', 'info');
+                return;
+            }
+            const libro = buscarPorISBN(selectedISBN);
+            if (!libro) return;
+            if (!libro.disponible) {
+                showToast('No se puede eliminar un libro que está prestado', 'error');
+                return;
+            }
+            showModal(`
+                <h3>🗑️ Confirmar Eliminación</h3>
+                <div style="background:#fef2f2;padding:10px 14px;border-radius:8px;margin-bottom:12px;font-size:12px;color:#991b1b;">
+                    ⚠️ <strong>${libro.titulo}</strong> — ${libro.autor}<br>
+                    ISBN: ${libro.isbn}
+                </div>
+                <p style="font-size:13px;color:#475569;">¿Eliminar este libro de la biblioteca? Esta acción no se puede deshacer.</p>
+                <div class="app-modal-btns">
+                    <button class="btn-cancel" onclick="cerrarModal()">Cancelar</button>
+                    <button class="btn-primary" style="background:#dc2626;" onclick="appEjecutarEliminar('${libro.isbn}')">🗑️ Eliminar</button>
+                </div>
+            `);
+        }
+
+        function appEjecutarEliminar(isbn) {
+            const idx = libros.findIndex(l => l.isbn === isbn);
+            if (idx === -1) return;
+            const titulo = libros[idx].titulo;
+            libros.splice(idx, 1);
+            guardarDatos();
+            cerrarModal();
+            renderTabla();
+            showToast(`'${titulo}' eliminado correctamente`, 'success');
+        }
+
+        // -- Estadísticas --
+        function appEstadisticas() {
+            const total = libros.length;
+            const disp = libros.filter(l => l.disponible).length;
+            const prest = libros.filter(l => !l.disponible).length;
+            const generos = {};
+            libros.forEach(l => { generos[l.genero] = (generos[l.genero] || 0) + 1; });
+            let generosHTML = Object.entries(generos)
+                .map(([g, c]) => `<div style="display:flex;justify-content:space-between;padding:4px 0;"><span>• ${g}</span><span style="font-weight:700;">${c}</span></div>`)
+                .join('');
+
+            showModal(`
+                <h3>📊 Estadísticas de la Biblioteca</h3>
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px;">
+                    <div style="background:#dbeafe;padding:14px;border-radius:10px;text-align:center;">
+                        <div style="font-size:24px;font-weight:900;color:#1e40af;">${total}</div>
+                        <div style="font-size:11px;color:#3b82f6;">📚 Total</div>
+                    </div>
+                    <div style="background:#dcfce7;padding:14px;border-radius:10px;text-align:center;">
+                        <div style="font-size:24px;font-weight:900;color:#166534;">${disp}</div>
+                        <div style="font-size:11px;color:#22c55e;">✅ Disponibles</div>
+                    </div>
+                    <div style="background:#fef2f2;padding:14px;border-radius:10px;text-align:center;">
+                        <div style="font-size:24px;font-weight:900;color:#991b1b;">${prest}</div>
+                        <div style="font-size:11px;color:#ef4444;">📕 Prestados</div>
+                    </div>
+                </div>
+                <div style="background:#f8fafc;padding:12px 16px;border-radius:10px;border:1px solid #e2e8f0;">
+                    <div style="font-weight:700;font-size:13px;margin-bottom:8px;color:#1e3a5f;">📂 Libros por género:</div>
+                    ${generosHTML}
+                </div>
+                <div class="app-modal-btns">
+                    <button class="btn-primary" onclick="cerrarModal()">Cerrar</button>
+                </div>
+            `);
+        }
+
+        // -- Ver detalle (doble clic) --
+        function appVerDetalle(isbn) {
+            const libro = buscarPorISBN(isbn);
+            if (!libro) return;
+            const estado = libro.disponible ? '✅ Disponible' : `📕 Prestado a ${libro.prestatario}`;
+            const fechaPrest = libro.fecha_prestamo ? new Date(libro.fecha_prestamo).toLocaleDateString('es-ES') : '—';
+            const fechaDev = libro.fecha_devolucion ? new Date(libro.fecha_devolucion).toLocaleDateString('es-ES') : '—';
+            showModal(`
+                <h3>📖 Detalle del Libro</h3>
+                <div style="space-y-2;font-size:13px;">
+                    <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span style="color:#64748b;">Título:</span><strong>${libro.titulo}</strong></div>
+                    <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span style="color:#64748b;">Autor:</span><strong>${libro.autor}</strong></div>
+                    <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span style="color:#64748b;">ISBN:</span><strong style="font-family:monospace;">${libro.isbn}</strong></div>
+                    <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span style="color:#64748b;">Género:</span><strong>${libro.genero}</strong></div>
+                    <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span style="color:#64748b;">Estado:</span><strong>${estado}</strong></div>
+                    <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span style="color:#64748b;">Fecha préstamo:</span><strong>${fechaPrest}</strong></div>
+                    <div style="display:flex;justify-content:space-between;padding:6px 0;"><span style="color:#64748b;">Fecha devolución:</span><strong>${fechaDev}</strong></div>
+                </div>
+                <div class="app-modal-btns">
+                    <button class="btn-primary" onclick="cerrarModal()">Cerrar</button>
+                </div>
+            `);
+        }
+
+        // -- Keyboard shortcuts dentro del app --
+        document.addEventListener('keydown', function(e) {
+            if (!document.getElementById('appOverlay').classList.contains('active')) return;
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('appModalContainer').innerHTML;
+                if (modal) { cerrarModal(); }
+                else { cerrarBiblioteca(); }
+            }
         });
     </script>
 </body>
